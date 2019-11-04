@@ -1,0 +1,12 @@
+{
+    "restartable": "rs",
+    "ignore": [
+      "dist",
+      "node_modules"
+    ],
+    "exec": "npm run build && node ./dist/index.js",
+    "ext": "ts, tsx, js",
+    "includes": [
+      "./**/*"
+    ]
+  }

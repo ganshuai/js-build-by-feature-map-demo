@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>feature test</title>
+  <style type="text/css">
+    .origin, .dist {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      min-height: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      overflow: auto;
+    }
+
+    .origin {
+      left: 0;
+      background: #000;
+      color: #fff;
+    }
+
+    .dist {
+      right: 0;
+      background: #fff;
+      color: #000;
+    }
+
+    .runCode {
+      height: 30px;
+      color: #fff;
+      background: green;
+      font-size: 20px;
+      line-height: 30px;
+      text-align: center;
+      margin: -10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="origin">
+    <pre id="source-code"></pre>
+  </div>
+  <div class="dist">
+    <pre id="dist"></pre>
+  </div>
+  <script src="/dist/runtime.js"></script>
+  <script>
+    function getCode(url, cb) {
+      var ajax = new (XMLHttpRequest || ActiveXObject("Microsoft.XMLHTTP"));
+      ajax.onreadystatechange = function () {
+        if (ajax.readyState == 4 && ajax.status == 200) {
+          cb(ajax.responseText)
+        }
+      }
+      ajax.open("GET", url, true);
+      ajax.setRequestHeader("Content-type", "text");
+      ajax.send();
+    }
+
+    getCode('/dist/result.js', function(code) {
+      showCode('#dist', code)
+      run(code)
+    })
+
+    getCode('/source-code', function(code) {
+      showCode('#source-code', code)
+    })
+
+    function showCode(el, code) {
+      document.querySelector(el).innerHTML = code;
+    }
+
+    function run(code) {
+      var fn = new Function(code)
+      fn()
+    }
+
+  </script>
+</body>
+
+</html>
