@@ -1,0 +1,1 @@
+一个利用js-build-by-feature-map-express-service实现的demo，用来说明js-build-by-feature-express-service的使用方式和效果
